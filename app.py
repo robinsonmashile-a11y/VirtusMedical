@@ -489,13 +489,22 @@ _NEW_BOOKINGS_FILE = Path(__file__).parent / "VirtusHealth_NewBookings_NextWeek.
 
 if _DEMO_FILE.exists():
     # Local / demo mode — auto-load the bundled Virtus Health data
-    with st.spinner("🔄 Loading Virtus Health analytics..."):
-        with open(_DEMO_FILE, "rb") as _f:
-            _demo_bytes = _f.read()
-        df, meta, desc, pred, presc, holiday_analysis, weather_analysis, weather_forecast, upcoming_hols = run_pipeline(
-            _demo_bytes, "VirtusHealth_Historical_Bookings.xlsx",
-            do_holidays=enrich_holidays, do_weather=enrich_weather,
-        )
+    try:
+        _spinner_ctx = st.spinner("🔄 Loading Virtus Health analytics...")
+        _spinner_ctx.__enter__()
+    except Exception:
+        _spinner_ctx = None
+    with open(_DEMO_FILE, "rb") as _f:
+        _demo_bytes = _f.read()
+    df, meta, desc, pred, presc, holiday_analysis, weather_analysis, weather_forecast, upcoming_hols = run_pipeline(
+        _demo_bytes, "VirtusHealth_Historical_Bookings.xlsx",
+        do_holidays=enrich_holidays, do_weather=enrich_weather,
+    )
+    if _spinner_ctx:
+        try:
+            _spinner_ctx.__exit__(None, None, None)
+        except Exception:
+            pass
 else:
     # Production / cloud mode — no bundled file, ask user to upload
     st.markdown("""
