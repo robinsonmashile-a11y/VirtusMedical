@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Streamlit Dashboard",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-I", "/tmp/cadence_streamlit.py"],
+      "port": 8501
+    },
+    {
+      "name": "Webhook Server",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-I", "/tmp/cadence_webhook.py"],
+      "port": 5005
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+# ── Secrets & credentials ─────────────────────────────────────────────────────
+config.ini
+
+# ── Database (local runtime data, not committed) ───────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Uploaded / processed data files ───────────────────────────────────────────
+VirtusHealth_Historical_Bookings.xlsx
+VirtusHealth_NewBookings_NextWeek.xlsx
+watch_folder/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ── Streamlit ─────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Environment variables ─────────────────────────────────────────────────────
+.env
+.env.*

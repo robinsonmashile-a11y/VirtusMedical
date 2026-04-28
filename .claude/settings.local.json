@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(python3 -m streamlit --version)",
+      "Bash(pip3 show streamlit)",
+      "Bash(python3 -c \":*)",
+      "Bash(lsof -i :5005)",
+      "Bash(kill 84273)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5005/whatsapp/incoming -X POST -d \"From=whatsapp:+27821000001&Body=Hi\")",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\" http://localhost:5005/whatsapp/incoming -X POST -d \"From=whatsapp:+27821000001&Body=Hi+I+want+to+book\")",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\" http://localhost:5005/whatsapp/incoming -X POST -d \"From=whatsapp:+27821111222&Body=Hi+I+want+to+book+an+appointment\")",
+      "Bash(curl -s -X POST http://localhost:5005/whatsapp/incoming -d \"From=whatsapp:+27821000001&Body=Hi+I+want+to+book\" -w \"\\\\nHTTP %{http_code}\")",
+      "Bash(# Check ngrok requests log curl -s http://localhost:4041/api/requests/http)",
+      "Bash(break)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(curl -s http://localhost:4040/api/requests/http)",
+      "Bash(python3 -c \"from pathlib import Path; print\\(''Current dir:'', Path\\(''.''\\).resolve\\(\\)\\); print\\(''virtus_health.db:'', Path\\(''virtus_health.db''\\).resolve\\(\\)\\)\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT name FROM sqlite_master WHERE type=''table'';\")",
+      "Bash(sqlite3 \"/Users/lucianomashile/Downloads/CadenceWorks_VirtusHealth 4/virtus_health.db\" \"SELECT name FROM sqlite_master WHERE type=''table'';\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT appointment_id, patient_name, phone, appt_datetime, provider, source, status, risk_score, risk_band, scored_at FROM bookings ORDER BY scored_at DESC LIMIT 10;\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT * FROM conversation_log ORDER BY ts DESC LIMIT 10;\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT appointment_id, patient_name, source, scored_at FROM bookings WHERE source=''WhatsApp Agent'' OR appointment_id=''VH-F88JM1'';\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT appointment_id, patient_name, appt_datetime, risk_score, risk_band, status, fee FROM bookings WHERE source=''WhatsApp Agent'';\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT appointment_id, patient_name, appt_datetime, risk_score, risk_band, status, source, scored_at FROM bookings ORDER BY scored_at DESC LIMIT 5;\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT COUNT\\(*\\) FROM bookings;\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT appointment_id, patient_name, appt_datetime, source, scored_at FROM bookings WHERE source=''WhatsApp Agent'';\")",
+      "Bash(lsof -p 29787)",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT id, phone, direction, message, ts, booking_id, outcome FROM conversation_log WHERE phone LIKE ''%27846542499%'' OR phone LIKE ''%846542499%'' ORDER BY ts ASC;\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT appointment_id, patient_name, appt_datetime, status, risk_band, source FROM bookings WHERE appointment_id=''VH-F88JM1'';\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"UPDATE conversation_log SET outcome=''booking_made'', booking_id=''VH-F88JM1'' WHERE id=49 AND phone=''whatsapp:+27846542499'';\")",
+      "Bash(sqlite3 /tmp/cadenceworks/virtus_health.db \"SELECT id, outcome, booking_id FROM conversation_log WHERE phone=''whatsapp:+27846542499'' ORDER BY ts DESC LIMIT 3;\")",
+      "Bash(git add .gitignore config.example.ini README.md requirements.txt app.py engine/ .claude/)"
+    ]
+  }
+}
