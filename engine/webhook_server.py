@@ -77,7 +77,7 @@ def send_whatsapp(to_number, message, cfg):
 
 def save_to_inbox(from_number, body, intent, patient_name=""):
     import sqlite3
-    DB_PATH = BASE_DIR / "virtus_health.db"
+    DB_PATH = Path(os.environ.get("DB_PATH", str(BASE_DIR / "virtus_health.db")))
     status  = "resolved" if intent in ("confirmed", "cancelled") else "needs_attention"
     try:
         conn = sqlite3.connect(DB_PATH)
