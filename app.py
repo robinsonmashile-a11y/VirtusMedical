@@ -487,13 +487,42 @@ def run_pipeline_two(type_bytes, type_name, status_bytes, status_name, do_holida
 _DEMO_FILE         = Path(__file__).parent / "VirtusHealth_Historical_Bookings.xlsx"
 _NEW_BOOKINGS_FILE = Path(__file__).parent / "VirtusHealth_NewBookings_NextWeek.xlsx"
 
-with st.spinner("🔄 Loading Virtus Health analytics..."):
-    with open(_DEMO_FILE, "rb") as _f:
-        _demo_bytes = _f.read()
-    df, meta, desc, pred, presc, holiday_analysis, weather_analysis, weather_forecast, upcoming_hols = run_pipeline(
-        _demo_bytes, "VirtusHealth_Historical_Bookings.xlsx",
-        do_holidays=enrich_holidays, do_weather=enrich_weather,
+if _DEMO_FILE.exists():
+    # Local / demo mode — auto-load the bundled Virtus Health data
+    with st.spinner("🔄 Loading Virtus Health analytics..."):
+        with open(_DEMO_FILE, "rb") as _f:
+            _demo_bytes = _f.read()
+        df, meta, desc, pred, presc, holiday_analysis, weather_analysis, weather_forecast, upcoming_hols = run_pipeline(
+            _demo_bytes, "VirtusHealth_Historical_Bookings.xlsx",
+            do_holidays=enrich_holidays, do_weather=enrich_weather,
+        )
+else:
+    # Production / cloud mode — no bundled file, ask user to upload
+    st.markdown("""
+    <div style='background:#1a3c4d;border-radius:14px;padding:28px 36px;margin-bottom:24px'>
+      <div style='font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+                  color:#3dbfaa;margin-bottom:8px'>● CadenceWorks</div>
+      <div style='font-size:22px;font-weight:800;color:white;margin-bottom:8px'>
+        Upload your booking data to get started
+      </div>
+      <div style='font-size:13px;color:rgba(255,255,255,0.6)'>
+        Upload your historical bookings Excel or CSV file below.
+      </div>
+    </div>""", unsafe_allow_html=True)
+    _uploaded = st.file_uploader(
+        "Upload historical bookings (Excel or CSV)",
+        type=["xlsx", "xls", "csv"],
+        key="main_upload"
     )
+    if _uploaded is None:
+        st.info("👆 Upload your bookings file above to load the full analytics dashboard.")
+        st.stop()
+    with st.spinner("🔄 Processing your data..."):
+        _demo_bytes = _uploaded.read()
+        df, meta, desc, pred, presc, holiday_analysis, weather_analysis, weather_forecast, upcoming_hols = run_pipeline(
+            _demo_bytes, _uploaded.name,
+            do_holidays=enrich_holidays, do_weather=enrich_weather,
+        )
 
 # ── Auto-ingest next week's bookings into Live Monitor (once per session) ─────
 if "new_bookings_loaded" not in st.session_state:
