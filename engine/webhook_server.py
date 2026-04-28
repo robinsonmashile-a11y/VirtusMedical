@@ -31,7 +31,9 @@ from pathlib import Path
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 BASE_DIR = Path(__file__).parent.parent
-PORT     = int(os.environ.get("PORT", 5005))
+# WEBHOOK_PORT is set by start.sh when running behind nginx (always 5005).
+# Falls back to PORT (Railway-assigned) when running standalone.
+PORT     = int(os.environ.get("WEBHOOK_PORT", os.environ.get("PORT", 5005)))
 
 
 def load_config():
