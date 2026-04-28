@@ -20,25 +20,23 @@ For Virtus Health, the practice WhatsApp number (+27 21 439 1555) should
 point to this webhook. All inbound messages are handled by the triage agent.
 """
 
+import os
 import urllib.parse
 import urllib.request
 import urllib.error
 import base64
 import json
-import configparser
 from datetime import datetime
 from pathlib import Path
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-BASE_DIR    = Path(__file__).parent.parent
-CONFIG_PATH = BASE_DIR / "config.ini"
-PORT        = 5005
+BASE_DIR = Path(__file__).parent.parent
+PORT     = int(os.environ.get("PORT", 5005))
 
 
 def load_config():
-    cfg = configparser.ConfigParser()
-    cfg.read(CONFIG_PATH)
-    return cfg
+    from engine.config_helper import load_config as _load
+    return _load()
 
 
 def send_whatsapp(to_number, message, cfg):

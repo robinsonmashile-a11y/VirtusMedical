@@ -4,6 +4,7 @@ Single source of truth for all live bookings.
 Score New Bookings, Live Monitor and Reminder Agent all read/write here.
 """
 
+import os
 import sqlite3
 import hashlib
 import pandas as pd
@@ -13,7 +14,8 @@ from datetime import datetime
 from engine.predictive import _build_features, _rule_based_score
 from engine import ingestor
 
-DB_PATH   = Path("virtus_health.db")
+# DB_PATH: use the DB_PATH env var (Railway volume) or default to local file
+DB_PATH   = Path(os.environ.get("DB_PATH", "virtus_health.db"))
 WATCH_DIR = Path("watch_folder")
 
 
